@@ -15,11 +15,8 @@ source .env
 # Ensure DB is available before running Prisma commands
 ./wait-for-db.sh agentgpt_db 3307
 
-# Run Prisma commands
-if [[ ! -f "/app/prisma/${DATABASE_URL:5}" ]]; then
-  npx prisma migrate deploy --name init
-  npx prisma db push
-fi
+# Run Prisma commands (sync schema to DB; no migration history in this repo)
+npx prisma db push --skip-generate
 
 # Generate Prisma client
 npx prisma generate

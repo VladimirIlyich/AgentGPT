@@ -1,12 +1,12 @@
 # Use the official Node.js image as the base image
-FROM node:19-alpine
+FROM docker.m.daocloud.io/library/node:18-alpine
 
 ARG NODE_ENV
 
 ENV NODE_ENV=$NODE_ENV
 
-# Needed for the wait-for-db script
-RUN apk add --no-cache netcat-openbsd
+# Prisma on Alpine needs OpenSSL 3; netcat for wait-for-db
+RUN apk add --no-cache openssl netcat-openbsd
 
 # Set the working directory
 WORKDIR /next
@@ -26,7 +26,7 @@ COPY . .
 COPY entrypoint.sh /
 
 # Ensure correct line endings after these files are edited by windows
-RUN apk add --no-cache dos2unix netcat-openbsd \
+RUN apk add --no-cache dos2unix \
     && dos2unix /entrypoint.sh
 
 
