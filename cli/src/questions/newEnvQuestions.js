@@ -2,22 +2,24 @@ import { isValidKey, validKeyErrorMessage } from "../helpers.js";
 import { RUN_OPTION_QUESTION } from "./sharedQuestions.js";
 import fetch from "node-fetch";
 
+const DASHSCOPE_MODELS_ENDPOINT =
+    "https://dashscope.aliyuncs.com/compatible-mode/v1/models";
+
 export const newEnvQuestions = [
     RUN_OPTION_QUESTION,
     {
         type: "input",
         name: "OpenAIApiKey",
         message:
-            "Enter your openai key (eg: sk...) or press enter to continue with no key:",
+            "Enter your DashScope/Qwen API key (eg: sk...) or press enter to continue with no key:",
         validate: async(apikey) => {
             if(apikey === "") return true;
 
-            if(!isValidKey(apikey, /^sk-[a-zA-Z0-9]{48}$/)) {
+            if(!isValidKey(apikey, /^sk-[a-zA-Z0-9]+$/)) {
                 return validKeyErrorMessage
             }
 
-            const endpoint = "https://api.openai.com/v1/models"
-            const response = await fetch(endpoint, {
+            const response = await fetch(DASHSCOPE_MODELS_ENDPOINT, {
                 headers: {
                     "Authorization": `Bearer ${apikey}`,
                 },

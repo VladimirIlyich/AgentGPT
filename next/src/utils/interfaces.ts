@@ -1,11 +1,11 @@
 import type { Session } from "next-auth";
 
 import type { Analysis } from "../services/agent/analysis";
-import type { GPTModelNames, ModelSettings } from "../types";
+import type { LLMModelNames, ModelSettings } from "../types";
 
 export interface ApiModelSettings {
   language: string;
-  model: GPTModelNames;
+  model: LLMModelNames;
   temperature: number;
   max_tokens: number;
 }
@@ -15,7 +15,7 @@ export const toApiModelSettings = (modelSettings: ModelSettings, session?: Sessi
 
   return {
     language: modelSettings.language.name,
-    model: allowCustomization ? modelSettings.customModelName : "gpt-3.5-turbo",
+    model: allowCustomization ? modelSettings.customModelName : "qwen3.5-flash",
     temperature: modelSettings.customTemperature,
     max_tokens: allowCustomization ? modelSettings.maxTokens : 500,
     custom_api_key: modelSettings.customApiKey,

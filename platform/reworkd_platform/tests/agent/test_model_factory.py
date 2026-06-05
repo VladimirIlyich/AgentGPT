@@ -40,7 +40,7 @@ def test_helicone_disabled():
     settings = Settings()
 
     base, headers, use_helicone = get_base_and_headers(settings, model_settings, user)
-    assert base == "https://api.openai.com/v1"
+    assert base == "https://dashscope.aliyuncs.com/compatible-mode/v1"
     assert headers is None
     assert use_helicone is False
 
@@ -58,7 +58,7 @@ def test_helicone_enabled_with_custom_api_key():
 
     base, headers, use_helicone = get_base_and_headers(settings, model_settings, user)
 
-    assert base == "https://api.openai.com/v1"
+    assert base == "openai_base"
     assert headers is None
     assert use_helicone is False
 
@@ -77,7 +77,7 @@ def test_create_model(streaming, use_azure):
     settings = Settings()
     model_settings = ModelSettings(
         temperature=0.7,
-        model="gpt-3.5-turbo",
+        model="qwen3.5-flash",
         max_tokens=100,
     )
 
@@ -104,7 +104,7 @@ def test_create_model(streaming, use_azure):
         assert isinstance(result, WrappedAzureChatOpenAI)
         assert issubclass(result.__class__, AzureChatOpenAI)
         assert result.openai_api_version == settings.openai_api_version
-        assert result.deployment_name == "gpt-35-turbo"
+        assert result.deployment_name == "qwen35-flash"
         assert result.openai_api_type == "azure"
 
 
@@ -114,9 +114,9 @@ def test_create_model(streaming, use_azure):
         itertools.product(
             [
                 ModelSettings(
-                    customTemperature=0.222,
-                    customModelName="gpt-4",
-                    maxTokens=1234,
+                    temperature=0.222,
+                    model="qwen-max",
+                    max_tokens=1234,
                 ),
                 ModelSettings(),
             ],

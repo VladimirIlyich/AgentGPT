@@ -52,7 +52,7 @@ class Settings(BaseSettings):
     secret_signing_key: str = "JF52S66x6WMoifP5gZreiguYs9LYMn0lkXqgPYoNMD0="
 
     # OpenAI
-    openai_api_base: str = "https://api.openai.com/v1"
+    openai_api_base: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     openai_api_key: str = "<Should be updated via env>"
     openai_api_version: str = "2023-08-01-preview"
     azure_openai_deployment_name: str = "<Should be updated via env if using azure>"

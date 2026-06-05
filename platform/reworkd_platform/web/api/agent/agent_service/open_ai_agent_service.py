@@ -181,7 +181,7 @@ class OpenAIAgentService(AgentService):
         goal: str,
         results: List[str],
     ) -> FastAPIStreamingResponse:
-        self.model.model_name = "gpt-3.5-turbo-16k"
+        self.model.model_name = "qwen3.5-plus"
         self.model.max_tokens = 8000  # Total tokens = prompt tokens + completion tokens
 
         snippet_max_tokens = 7000  # Leave room for the rest of the prompt
@@ -202,7 +202,7 @@ class OpenAIAgentService(AgentService):
         message: str,
         results: List[str],
     ) -> FastAPIStreamingResponse:
-        self.model.model_name = "gpt-3.5-turbo-16k"
+        self.model.model_name = "qwen3.5-plus"
         prompt = ChatPromptTemplate.from_messages(
             [
                 SystemMessagePromptTemplate(prompt=chat_prompt),

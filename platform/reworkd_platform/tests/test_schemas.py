@@ -7,24 +7,24 @@ from reworkd_platform.schemas.agent import ModelSettings
     "settings",
     [
         {
-            "model": "gpt-4",
+            "model": "qwen-max",
             "max_tokens": 7000,
             "temperature": 0.5,
             "language": "french",
         },
         {
-            "model": "gpt-3.5-turbo",
+            "model": "qwen3.5-flash",
             "max_tokens": 3000,
         },
         {
-            "model": "gpt-3.5-turbo-16k",
+            "model": "qwen3.5-plus",
             "max_tokens": 16000,
         },
     ],
 )
 def test_model_settings_valid(settings):
     result = ModelSettings(**settings)
-    assert result.model == settings.get("model", "gpt-3.5-turbo")
+    assert result.model == settings.get("model", "qwen3.5-flash")
     assert result.max_tokens == settings.get("max_tokens", 500)
     assert result.temperature == settings.get("temperature", 0.9)
     assert result.language == settings.get("language", "English")
@@ -43,7 +43,7 @@ def test_model_settings_valid(settings):
             "max_tokens": 8000,
         },
         {
-            "model": "gpt-4",
+            "model": "qwen-max",
             "max_tokens": 32000,
         },
     ],
@@ -55,7 +55,7 @@ def test_model_settings_invalid(settings):
 
 def test_model_settings_default():
     settings = ModelSettings(**{})
-    assert settings.model == "gpt-3.5-turbo"
+    assert settings.model == "qwen3.5-flash"
     assert settings.temperature == 0.9
     assert settings.max_tokens == 500
     assert settings.language == "English"

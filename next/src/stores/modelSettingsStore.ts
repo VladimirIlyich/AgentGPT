@@ -42,7 +42,7 @@ export const useModelSettingsStore = createSelectors(
         partialize: (state) => ({
           modelSettings: {
             ...state.modelSettings,
-            customModelName: "gpt-3.5-turbo",
+            customModelName: "qwen3.5-flash",
             maxTokens: Math.min(state.modelSettings.maxTokens, 4000),
           },
         }),

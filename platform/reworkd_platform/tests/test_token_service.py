@@ -33,7 +33,7 @@ def test_calculate_max_tokens_with_small_max_tokens() -> None:
     initial_max_tokens = 3000
     service = TokenService(encoding)
     model = Mock(spec=["model_name", "max_tokens"])
-    model.model_name = "gpt-3.5-turbo"
+    model.model_name = "qwen3.5-flash"
     model.max_tokens = initial_max_tokens
 
     service.calculate_max_tokens(model, "Hello")
@@ -45,20 +45,20 @@ def test_calculate_max_tokens_with_high_completion_tokens() -> None:
     service = TokenService(encoding)
     prompt_tokens = service.count(LONG_TEXT)
     model = Mock(spec=["model_name", "max_tokens"])
-    model.model_name = "gpt-3.5-turbo"
+    model.model_name = "qwen3.5-flash"
     model.max_tokens = 8000
 
     service.calculate_max_tokens(model, LONG_TEXT)
 
     assert model.max_tokens == (
-        LLM_MODEL_MAX_TOKENS.get("gpt-3.5-turbo") - prompt_tokens
+        LLM_MODEL_MAX_TOKENS.get("qwen3.5-flash") - prompt_tokens
     )
 
 
 def test_calculate_max_tokens_with_negative_result() -> None:
     service = TokenService(encoding)
     model = Mock(spec=["model_name", "max_tokens"])
-    model.model_name = "gpt-3.5-turbo"
+    model.model_name = "qwen3.5-flash"
     model.max_tokens = 8000
 
     service.calculate_max_tokens(model, *([LONG_TEXT] * 100))

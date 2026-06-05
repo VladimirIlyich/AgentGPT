@@ -90,7 +90,7 @@ async def summarize(
         get_agent_service(
             validator=agent_summarize_validator,
             streaming=True,
-            llm_model="gpt-3.5-turbo-16k",
+            llm_model="qwen3.5-plus",
         ),
     ),
 ) -> FastAPIStreamingResponse:
@@ -107,7 +107,7 @@ async def chat(
         get_agent_service(
             validator=agent_chat_validator,
             streaming=True,
-            llm_model="gpt-3.5-turbo-16k",
+            llm_model="qwen3.5-plus",
         ),
     ),
 ) -> FastAPIStreamingResponse:

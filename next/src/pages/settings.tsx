@@ -22,7 +22,7 @@ import type { LLMModel } from "../hooks/useModels";
 import { useModels } from "../hooks/useModels";
 import { useSettings } from "../hooks/useSettings";
 import DashboardLayout from "../layout/dashboard";
-import type { GPTModelNames } from "../types";
+import type { LLMModelNames } from "../types";
 import Button from "../ui/button";
 import Combo from "../ui/combox";
 import Input from "../ui/input";
@@ -39,7 +39,7 @@ const SettingsPage = () => {
 
   const validateApiKey = async () => {
     try {
-      await axios.get("https://api.openai.com/v1/engines", {
+      await axios.get("https://dashscope.aliyuncs.com/compatible-mode/v1/models", {
         headers: {
           Authorization: `Bearer ${settings.customApiKey}`,
         },
@@ -63,7 +63,7 @@ const SettingsPage = () => {
       updateSettings("maxTokens", model.max_tokens);
     }
 
-    updateSettings("customModelName", model.name as GPTModelNames);
+    updateSettings("customModelName", model.name as LLMModelNames);
   };
 
   const onDisconnect = () => {
@@ -105,8 +105,11 @@ const SettingsPage = () => {
                 helpText={
                   <span>
                     You can optionally use your own API key here. You can find your API key in your{" "}
-                    <a className="link" href="https://platform.openai.com/account/api-keys">
-                      OpenAI dashboard.
+                    <a
+                      className="link"
+                      href="https://help.aliyun.com/zh/model-studio/get-api-key"
+                    >
+                      阿里云百炼控制台
                     </a>
                   </span>
                 }
