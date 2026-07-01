@@ -35,7 +35,8 @@ RUN apt-get purge -y \
 
 # Copying actual application
 COPY . /app/src/
-RUN poetry install --only main
+RUN poetry install --only main \
+  && pip install "lanarky>=0.7.15,<0.7.17"
 
 CMD ["/usr/local/bin/python", "-m", "reworkd_platform"]
 
